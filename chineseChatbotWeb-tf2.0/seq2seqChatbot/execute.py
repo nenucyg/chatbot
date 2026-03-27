@@ -24,8 +24,22 @@ def preprocess_sentence(w):
     return w
 
 def create_dataset(path, num_examples):
-    lines = io.open(path, encoding='UTF-8').read().strip().split('\n')
-    word_pairs = [[preprocess_sentence(w)for w in l.split('\t')] for l in lines[:num_examples]]
+    raw_text = io.open(path, encoding='UTF-8').read().strip()
+    if not raw_text:
+        raise ValueError(
+            "训练数据为空，请先准备 train_data/xiaohuangji50w_nofenci.conv 后再运行 data_util.py。"
+        )
+
+    lines = raw_text.split('\n')
+    word_pairs = []
+    for line in lines[:num_examples]:
+        parts = line.split('\t')
+        if len(parts) != 2:
+            continue
+        word_pairs.append([preprocess_sentence(w) for w in parts])
+
+    if not word_pairs:
+        raise ValueError("未解析到可用的问答对，请检查 seq.data 是否为“问题\\t回答”格式。")
 
     return zip(*word_pairs)
 

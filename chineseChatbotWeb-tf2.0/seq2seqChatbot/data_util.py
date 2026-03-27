@@ -15,8 +15,9 @@ gConfig=getConfig.get_config()
 conv_path = gConfig['resource_data']
  
 if not os.path.exists(conv_path):
-	
-	exit()
+	raise FileNotFoundError(f"未找到训练语料文件: {conv_path}")
+if os.path.getsize(conv_path) == 0:
+	raise ValueError(f"训练语料文件为空: {conv_path}")
 #下面这段我们需要完成一件事，就是将训练集的数据识别读取并存入一个List中，大概分为以下几个步骤
 #a、打开文件 
 #b、读取文件中的内容，并对文件的数据进行初步处理
@@ -66,6 +67,6 @@ for i in range(len(seq)):
       print(len(range(len(seq))), '处理进度：', i)
  
 seq_train.close()
-
+print("数据预处理完成，输出文件：%s，样本数：%d" % (gConfig['seq_data'], len(seq)))
 
 

@@ -1,0 +1,4 @@
+tensorflow>=2.16
+flask>=0.11.1
+jieba>=0.42
+zhon>=2.1
