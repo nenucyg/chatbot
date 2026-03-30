@@ -2,11 +2,17 @@
 一个可以使用自己语料进行训练的中文聊天机器人，目前包含seq2seq tf1.x和tf.2x版本，seqGan版本为tf1.x版本，pytorch版本，欢迎大家实践交流。
 
 # 关于语料的说明
-大家可以使用小黄鸡的预料，地址https://github.com/zhaoyingjun/chatbot/blob/master/chineseChatbotWeb-tf2.0/seq2seqChatbot/train_data/xiaohuangji50w_nofenci.conv
+大家可以使用小黄鸡语料，推荐地址：https://github.com/pzy2000/-  
+仓库内 `chineseChatbotWeb-tf2.0/seq2seqChatbot/download_corpus.py` 已内置下载地址，可直接执行下载：
+
+```bash
+cd chineseChatbotWeb-tf2.0/seq2seqChatbot
+python3 download_corpus.py
+```
 
 # seq2seq版本代码执行顺序
 
-1、在下载好代码和语料之后，将语料文件放入data目录下。
+1、下载语料后，将语料文件放入 data 目录（或直接运行 `python3 download_corpus.py` 自动下载到 `train_data/xiaohuangji50w_nofenci.conv`）。
 
 2、按照 数据预处理器（data_utls.py)-->execute.py(执行器)-->app.py（可视化对话模块）的顺序执行就可以了。
 
@@ -52,5 +58,4 @@ V3.0：增加TensorFlow2.0版，训练效果见文件夹内图片，训练数据
 V4.0:a、seq2seq模型增加pytorch版本，seqGAN模型pytorch版本稍后更新；b、对当前的工程结构进行调整。
 # 版本路线图:
 V4.1:seqGAN模型增加tf2.0和pytorch版本，敬请期待。
-
 

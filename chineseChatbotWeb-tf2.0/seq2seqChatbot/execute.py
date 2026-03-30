@@ -73,6 +73,7 @@ def train():
     print(steps_per_epoch)
     enc_hidden = seq2seqModel.encoder.initialize_hidden_state()
     checkpoint_dir = gConfig['model_data']
+    os.makedirs(checkpoint_dir, exist_ok=True)
     ckpt=tf.io.gfile.listdir(checkpoint_dir)
     if ckpt:
         print("reload pretrained model")
@@ -106,7 +107,10 @@ def train():
 def predict(sentence):
 
     checkpoint_dir = gConfig['model_data']
-    seq2seqModel.checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
+    latest_ckpt = tf.train.latest_checkpoint(checkpoint_dir)
+    if latest_ckpt is None:
+        raise FileNotFoundError("未找到可用模型，请先运行 python3 execute.py 完成训练。")
+    seq2seqModel.checkpoint.restore(latest_ckpt)
 
     sentence = preprocess_sentence(sentence)
     inputs = [input_token.word_index.get(i,3) for i in sentence.split(' ')]
